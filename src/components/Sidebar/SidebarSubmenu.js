@@ -17,9 +17,9 @@ function SidebarSubmenu({ route }) {
   }
 
   return (
-    <li className="relative px-6 py-3" key={route.name}>
+    <li className="relative  py-3" key={route.name}>
       <button
-        className="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+        className="px-6 inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
         onClick={handleDropdownMenuClick}
         aria-haspopup="true"
       >
