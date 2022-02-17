@@ -20,9 +20,9 @@ function Header() {
   useEffect(() => {
     const dir = localStorage.getItem("dir")
 
-    setDir(dir && "ltr")
+    setDir(dir ? dir : "ltr")
 
-    document.querySelector("html").dir = dir && "ltr"
+    document.querySelector("html").dir = dir ? dir : "ltr"
 
   }, []);
 
