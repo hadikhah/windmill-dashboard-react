@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { SidebarContext } from '../context/SidebarContext'
 import {
   SearchIcon,
@@ -14,7 +14,25 @@ import { Avatar, Badge, Input, Dropdown, DropdownItem, WindmillContext } from '@
 
 function Header() {
   const { mode, toggleMode } = useContext(WindmillContext)
+  const [dir, setDir] = useState("ltr");
   const { toggleSidebar } = useContext(SidebarContext)
+
+  useEffect(() => {
+    const dir = localStorage.getItem("dir")
+
+    setDir(dir && "ltr")
+
+    document.querySelector("html").dir = dir && "ltr"
+
+  }, []);
+
+  const DirectionHandler = () => {
+    setDir(dir == "rtl" ? "ltr" : "rtl")
+
+    localStorage.setItem("dir", dir == "rtl" ? "ltr" : "rtl")
+
+    document.querySelector("html").dir = dir == "rtl" ? "ltr" : "rtl"
+  }
 
   const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] = useState(false)
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false)
@@ -66,6 +84,19 @@ function Header() {
               )}
             </button>
           </li>
+          <li className="flex">
+            <button
+              className="rounded-md focus:outline-none focus:shadow-outline-purple"
+              onClick={DirectionHandler}
+              aria-label="Toggle color mode"
+            >
+              {dir === 'rtl' ? (
+                <span>Ltr</span>
+              ) : (
+                <span>Rtl</span>
+              )}
+            </button>
+          </li>
           {/* <!-- Notifications menu --> */}
           <li className="relative">
             <button
@@ -84,6 +115,7 @@ function Header() {
 
             <Dropdown
               align="end"
+              className="end-0"
               isOpen={isNotificationsMenuOpen}
               onClose={() => setIsNotificationsMenuOpen(false)}
             >
@@ -117,6 +149,7 @@ function Header() {
             </button>
             <Dropdown
               align="end"
+              className="end-0"
               isOpen={isProfileMenuOpen}
               onClose={() => setIsProfileMenuOpen(false)}
             >
